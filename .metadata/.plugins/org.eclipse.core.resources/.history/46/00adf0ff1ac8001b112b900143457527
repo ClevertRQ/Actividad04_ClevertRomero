@@ -1,0 +1,108 @@
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JRViewer;
+import reporte.GeneradorReporte;
+
+import java.awt.FlowLayout;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class FrmReporteClienteLista extends JFrame implements ActionListener {
+
+	private JPanel contentPane;
+	private JTextField txtDNI;
+	private JLabel lblNewLabel;
+	private JButton btnFiltrar;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrmReporteClienteLista frame = new FrmReporteClienteLista();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FrmReporteClienteLista() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 824, 502);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblDNI = new JLabel("DNI :");
+		lblDNI.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblDNI.setBounds(66, 46, 62, 23);
+		contentPane.add(lblDNI);
+		
+		txtDNI = new JTextField();
+		txtDNI.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtDNI.setBounds(194, 43, 380, 26);
+		contentPane.add(txtDNI);
+		txtDNI.setColumns(10);
+		
+		btnFiltrar = new JButton("FILTRAR");
+		btnFiltrar.addActionListener(this);
+		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnFiltrar.setBounds(640, 46, 99, 25);
+		contentPane.add(btnFiltrar);
+		
+		lblNewLabel = new JLabel("CONSULTA CLIENTE POR DNI");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel.setBounds(10, 0, 788, 35);
+		contentPane.add(lblNewLabel);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnFiltrar) {
+			actionPerformedBtnFiltrar(e);
+		}
+	}
+	protected void actionPerformedBtnFiltrar(ActionEvent e) {
+		
+		
+				JRBeanCollectionDataSource dataSource 
+						= new JRBeanCollectionDataSource(lstData);
+
+				// 2 El diseño del reporte (Diseño)
+				String file = "reportClientexDNI.jasper";
+				
+				// 3 Se genera el reporte
+				JasperPrint jasperPrint =
+					GeneradorReporte.genera(file, dataSource, null);
+
+				// 4 Se muestra en el visor
+				JRViewer jRViewer = new JRViewer(jasperPrint);
+				
+				// 5 Se añade el visor al panel
+				panelReporte.removeAll();
+				panelReporte.add(jRViewer);
+				panelReporte.repaint();
+				panelReporte.revalidate();
+	}
+}

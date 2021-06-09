@@ -1,0 +1,71 @@
+package gui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.FlowLayout;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+
+public class FrmReporteClienteLista extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txtDNI;
+	private JLabel lblNewLabel;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrmReporteClienteLista frame = new FrmReporteClienteLista();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FrmReporteClienteLista() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 824, 502);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblDNI = new JLabel("DNI :");
+		lblDNI.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblDNI.setBounds(66, 46, 62, 23);
+		contentPane.add(lblDNI);
+		
+		txtDNI = new JTextField();
+		txtDNI.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		txtDNI.setBounds(194, 43, 380, 26);
+		contentPane.add(txtDNI);
+		txtDNI.setColumns(10);
+		
+		JButton btnFiltrar = new JButton("FILTRAR");
+		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnFiltrar.setBounds(640, 46, 99, 25);
+		contentPane.add(btnFiltrar);
+		
+		lblNewLabel = new JLabel("CONSULTA CLIENTE POR DNI");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel.setBounds(10, 0, 788, 35);
+		contentPane.add(lblNewLabel);
+	}
+}
